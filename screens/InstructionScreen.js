@@ -1,5 +1,5 @@
 import { Colors } from "../constants/colors";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const InstructionScreen = ({ text }) => {
@@ -14,6 +14,8 @@ const InstructionScreen = ({ text }) => {
 
 export default InstructionScreen;
 
+const deviceWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
   },
 
   instructionText: {
-    fontSize: 64,
+    fontSize: deviceWidth < 380 ? 56 : 64,
     textAlign: "center",
     fontWeight: "bold",
     color: Colors.black800,

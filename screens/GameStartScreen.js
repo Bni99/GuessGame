@@ -9,7 +9,11 @@ const GameStartScreen = ({ changeCurrentScreen }) => {
     <SafeAreaView style={styles.gameStartScreenContainer}>
       <View style={styles.subContainer}>
         <View style={styles.box}>
-          <FontAwesome5 name="question" size={180} color={Colors.black800} />
+          <FontAwesome5
+            name="question"
+            size={deviceWidth < 380 ? 130 : 180}
+            color={Colors.black800}
+          />
         </View>
         <View style={styles.mainScreenTextContainer}>
           <Text style={styles.mainScreenText}>Guess The Number</Text>
@@ -40,8 +44,8 @@ const styles = StyleSheet.create({
   },
 
   box: {
-    height: deviceWidth < 380 ? 200 : 220,
-    width: deviceWidth < 380 ? 220 : 240,
+    height: deviceWidth < 380 ? 180 : 220,
+    width: deviceWidth < 380 ? 200 : 240,
     backgroundColor: Colors.yellow600,
     margin: 24,
     alignItems: "center",
@@ -52,15 +56,16 @@ const styles = StyleSheet.create({
 
   mainScreenText: {
     fontFamily: "main-font",
-    fontSize: 46,
-    marginTop: 16,
+    fontSize: deviceWidth < 380 ? 40 : 46,
     color: Colors.white800,
     textAlign: "center",
     flexWrap: "wrap",
   },
 
   mainScreenTextContainer: {
-    width: 250,
+    width: deviceWidth < 380 ? 200 : 250,
+    marginTop: 8,
+    marginBottom: 16,
   },
 
   button: {

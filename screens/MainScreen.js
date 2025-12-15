@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
+import { Colors } from "../constants/colors";
 import PrimaryButton from "../components/PrimaryButton";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, Text, TextInput, View, Dimensions } from "react-native";
 import { randomNumberGenerator } from "../constants/randomNumberGenerator";
-import { Colors } from "../constants/colors";
+import { StyleSheet, Text, TextInput, View, Dimensions } from "react-native";
 
 const MainScreen = ({ changeCurrentScreen }) => {
   const [numberToBeGuessed, setNumberToBeGuessed] = useState(() =>
@@ -53,7 +53,11 @@ const MainScreen = ({ changeCurrentScreen }) => {
           />
           <View style={styles.buttonContainer}>
             <View style={{ flex: 1 }}>
-              <PrimaryButton title="Submit" onPress={checkNumberIsCorrect} />
+              <PrimaryButton
+                title="Submit"
+                onPress={checkNumberIsCorrect}
+                disabled={enteredNumber === "" ? true : false}
+              />
             </View>
             <View style={{ flex: 1 }}>
               <PrimaryButton
@@ -80,7 +84,6 @@ const MainScreen = ({ changeCurrentScreen }) => {
 export default MainScreen;
 
 const deviceWidth = Dimensions.get("window").width;
-console.log(deviceWidth);
 
 const styles = StyleSheet.create({
   mainScreenContainer: {
@@ -92,14 +95,14 @@ const styles = StyleSheet.create({
   },
 
   mainContainerText: {
-    fontSize: deviceWidth < 400 ? 20 : 24,
-    padding: deviceWidth < 400 ? 12 : 10,
+    fontSize: deviceWidth < 380 ? 20 : 24,
+    padding: deviceWidth < 380 ? 12 : 10,
     fontFamily: "main-font",
     textAlign: "center",
   },
 
   attemptsText: {
-    fontSize: deviceWidth < 400 ? 28 : 30,
+    fontSize: deviceWidth < 380 ? 24 : 30,
     fontWeight: 900,
     color: Colors.white800,
     textAlign: "center",
@@ -107,13 +110,13 @@ const styles = StyleSheet.create({
   },
 
   textInput: {
-    padding: 8,
-    fontSize: 36,
+    padding: deviceWidth < 380 ? 6 : 8,
+    fontSize: deviceWidth < 380 ? 32 : 36,
     fontWeight: 900,
     borderRadius: 8,
     borderColor: "black",
-    borderBottomWidth: 4,
-    width: 90,
+    borderBottomWidth: deviceWidth < 380 ? 3 : 4,
+    width: deviceWidth < 380 ? 70 : 90,
     textAlign: "center",
   },
 
@@ -121,21 +124,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 4,
     borderColor: "black",
-    borderWidth: 4,
+    borderWidth: deviceWidth < 380 ? 2 : 4,
     borderRadius: 8,
     backgroundColor: Colors.yellow600,
-    maxWidth: "95%",
+    maxWidth: "96%",
     width: 320,
   },
 
   attemptsContainer: {
     borderColor: "white",
-    borderWidth: 3,
-    borderRadius: 4,
-    width: 250,
-    padding: 12,
+    borderWidth: deviceWidth < 380 ? 2 : 3,
+    borderRadius: deviceWidth < 380 ? 2 : 4,
+    width: 180,
+    maxWidth: "75%",
+    padding: deviceWidth < 380 ? 8 : 12,
     margin: 20,
   },
+
   buttonContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -143,18 +148,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
 
-  instructionText: {
-    fontSize: 20,
-    fontWeight: 800,
-    color: "black",
-  },
-
   clueText: {
-    fontSize: 24,
+    fontSize: deviceWidth < 380 ? 20 : 24,
     fontWeight: 600,
     color: Colors.white800,
     backgroundColor: Colors.blue500,
-    padding: 16,
+    padding: deviceWidth < 380 ? 10 : 16,
     borderRadius: 8,
     borderColor: Colors.black800,
     borderWidth: 2,

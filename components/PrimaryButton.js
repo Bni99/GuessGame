@@ -1,15 +1,18 @@
 import { Colors } from "../constants/colors";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 
-const PrimaryButton = ({ title, onPress, style }) => {
+const PrimaryButton = ({ title, onPress, style, disabled = false }) => {
   return (
     <View style={[styles.buttonOuterContainer, style]}>
       <Pressable
         onPress={onPress}
-        style={({ pressed }) =>
-          pressed ? [styles.button, styles.pressed] : [styles.button]
-        }
+        style={({ pressed }) => [
+          styles.button,
+          pressed && !disabled && styles.pressed,
+          disabled && styles.disabled,
+        ]}
         android_ripple={{ color: "#205976ff" }}
+        disabled={disabled}
       >
         <Text style={styles.buttonText}>{title}</Text>
       </Pressable>
@@ -19,6 +22,8 @@ const PrimaryButton = ({ title, onPress, style }) => {
 
 export default PrimaryButton;
 
+const deviceWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   buttonOuterContainer: {
     borderRadius: 8,
@@ -27,17 +32,17 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    paddingHorizontal: 20,
-    paddingVertical: 12,
+    paddingHorizontal: deviceWidth < 380 ? 16 : 20,
+    paddingVertical: deviceWidth < 380 ? 8 : 12,
     backgroundColor: Colors.blue500,
     borderColor: Colors.black800,
-    borderWidth: 4,
+    borderWidth: deviceWidth < 380 ? 2 : 4,
     elevation: 8,
     borderRadius: 8,
   },
 
   buttonText: {
-    fontSize: 20,
+    fontSize: deviceWidth < 380 ? 18 : 20,
     fontWeight: 600,
     color: Colors.white800,
     textAlign: "center",
@@ -45,5 +50,11 @@ const styles = StyleSheet.create({
 
   pressed: {
     opacity: 0.75,
+  },
+
+  disabled: {
+    backgroundColor: "#ccc",
+    borderColor: "#ccc",
+    borderWidth: 2,
   },
 });
