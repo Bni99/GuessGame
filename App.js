@@ -10,9 +10,18 @@ import { useState } from "react";
 import InstructionScreen from "./screens/InstructionScreen";
 import MainScreen from "./screens/MainScreen";
 import GameOverScreen from "./screens/GameOverScreen";
+import { randomNumberGenerator } from "./constants/randomNumberGenerator";
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState(0);
+  const [numberToBeGuessed, setNumberToBeGuessed] = useState(() =>
+    randomNumberGenerator()
+  );
+  const [attempts, setAttempts] = useState(null);
+
+  const getAttempts = (attempts) => {
+    setAttempts(attempts);
+  };
 
   const [fontLoading] = useFonts({
     "main-font": require("./assets/fonts/AlfaSlabOne-Regular.ttf"),
@@ -37,6 +46,11 @@ export default function App() {
     }
   };
 
+  const gameRestart = () => {
+    setNumberToBeGuessed(randomNumberGenerator());
+    setCurrentScreen(0);
+  };
+
   return (
     <SafeAreaProvider>
       <LinearGradient
@@ -56,9 +70,19 @@ export default function App() {
         )}
         {currentScreen === 3 && <InstructionScreen text={"Let's Go !!!!"} />}
         {currentScreen === 4 && (
-          <MainScreen changeCurrentScreen={changeCurrentScreen} />
+          <MainScreen
+            changeCurrentScreen={changeCurrentScreen}
+            numberToBeGuessed={numberToBeGuessed}
+            getAttempts={getAttempts}
+          />
         )}
-        {currentScreen === 5 && <GameOverScreen />}
+        {currentScreen === 5 && (
+          <GameOverScreen
+            numberToBeGuessed={numberToBeGuessed}
+            attempts={attempts}
+            gameRestart={gameRestart}
+          />
+        )}
         <StatusBar style="auto" />
       </LinearGradient>
     </SafeAreaProvider>

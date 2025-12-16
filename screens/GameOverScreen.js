@@ -1,35 +1,63 @@
+import Card from "../components/Card";
+import Heading from "../components/Heading";
 import { StyleSheet, Text, View } from "react-native";
-import Entypo from "@expo/vector-icons/Entypo";
-import { Colors } from "../constants/colors";
+import PrimaryButton from "../components/PrimaryButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const GameOverScreen = () => {
+const GameOverScreen = ({ numberToBeGuessed, attempts, gameRestart }) => {
   return (
     <SafeAreaView
-      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+      style={{
+        flex: 1,
+        alignItems: "center",
+      }}
     >
-      <Entypo name="emoji-sad" size={76} color={Colors.white800} />
-      <Text
-        style={{
-          fontSize: 32,
-          fontWeight: 800,
-          fontFamily: "main-font",
-          color: Colors.white800,
-        }}
-      >
-        Game Over !
-      </Text>
-      <View>
-        <Text>Game Stats</Text>
-        <View>
-          <Text>Attempts :</Text>
-          <Text>You Won!</Text>
+      <Heading text="Game Over" />
+      <Card heading="Game Stats">
+        <View style={styles.statsTextContainer}>
+          <Text style={styles.statsText}>
+            Number :{" "}
+            <Text style={{ fontWeight: 900, fontFamily: "main-font" }}>
+              {numberToBeGuessed}
+            </Text>
+          </Text>
+          <Text style={styles.statsText}>
+            Attempts Remaining :{" "}
+            <Text style={{ fontWeight: 900, fontFamily: "main-font" }}>
+              {attempts}
+            </Text>
+          </Text>
+          <Text style={styles.statsText}>
+            Final Verdict :{" "}
+            <Text style={{ fontWeight: 900, fontFamily: "main-font" }}>
+              {attempts > 0 ? "You Win" : "You Lose"}
+            </Text>
+          </Text>
         </View>
-      </View>
+      </Card>
+
+      <PrimaryButton
+        title="Start a new game"
+        style={{ marginTop: 100 }}
+        onPress={gameRestart}
+      />
     </SafeAreaView>
   );
 };
 
 export default GameOverScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  statsText: {
+    backgroundColor: "orange",
+    padding: 6,
+    fontWeight: 600,
+    margin: 4,
+    width: "96%",
+  },
+
+  statsTextContainer: {
+    width: "100%",
+    alignItems: "flex-start",
+  },
+});

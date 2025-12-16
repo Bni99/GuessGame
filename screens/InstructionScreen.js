@@ -1,6 +1,6 @@
 import { Colors } from "../constants/colors";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 
 const InstructionScreen = ({ text }) => {
   return (
