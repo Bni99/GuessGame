@@ -1,6 +1,6 @@
 import Card from "../components/Card";
 import Heading from "../components/Heading";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -9,38 +9,39 @@ const GameOverScreen = ({ numberToBeGuessed, attempts, gameRestart }) => {
     <SafeAreaView
       style={{
         flex: 1,
-        alignItems: "center",
       }}
     >
-      <Heading text="Game Over" />
-      <Card heading="Game Stats">
-        <View style={styles.statsTextContainer}>
-          <Text style={styles.statsText}>
-            Number :{" "}
-            <Text style={{ fontWeight: 900, fontFamily: "main-font" }}>
-              {numberToBeGuessed}
+      <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+        <Heading text="Game Over" />
+        <Card heading="Game Stats">
+          <View style={styles.statsTextContainer}>
+            <Text style={styles.statsText}>
+              Number :{" "}
+              <Text style={{ fontWeight: 900, fontFamily: "main-font" }}>
+                {numberToBeGuessed}
+              </Text>
             </Text>
-          </Text>
-          <Text style={styles.statsText}>
-            Attempts Remaining :{" "}
-            <Text style={{ fontWeight: 900, fontFamily: "main-font" }}>
-              {attempts}
+            <Text style={styles.statsText}>
+              Attempts Remaining :{" "}
+              <Text style={{ fontWeight: 900, fontFamily: "main-font" }}>
+                {attempts}
+              </Text>
             </Text>
-          </Text>
-          <Text style={styles.statsText}>
-            Final Verdict :{" "}
-            <Text style={{ fontWeight: 900, fontFamily: "main-font" }}>
-              {attempts > 0 ? "You Win" : "You Lose"}
+            <Text style={styles.statsText}>
+              Final Verdict :{" "}
+              <Text style={{ fontWeight: 900, fontFamily: "main-font" }}>
+                {attempts > 0 ? "You Win" : "You Lose"}
+              </Text>
             </Text>
-          </Text>
-        </View>
-      </Card>
+          </View>
+        </Card>
 
-      <PrimaryButton
-        title="Start a new game"
-        style={{ marginTop: 100 }}
-        onPress={gameRestart}
-      />
+        <PrimaryButton
+          title="Start a new game"
+          style={{ marginTop: 50 }}
+          onPress={gameRestart}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { Colors } from "../constants/colors";
 import PrimaryButton from "../components/PrimaryButton";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, Text, TextInput, View, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import Heading from "../components/Heading";
 import Card from "../components/Card";
 
@@ -41,7 +48,7 @@ const MainScreen = ({
 
   return (
     <SafeAreaView style={styles.mainScreenContainer}>
-      <View style={{ alignItems: "center" }}>
+      <ScrollView contentContainerStyle={{ alignItems: "center" }}>
         <Card heading="Enter Your Guess Here">
           <TextInput
             style={styles.textInput}
@@ -63,7 +70,7 @@ const MainScreen = ({
             </View>
             <View style={{ flex: 1 }}>
               <PrimaryButton
-                title="Give Up ?"
+                title="Give Up"
                 onPress={() => changeCurrentScreen(5)}
               />
             </View>
@@ -74,8 +81,8 @@ const MainScreen = ({
             {attemptsRemaining}/10
           </Text>
         </Heading>
-      </View>
-      <View>{clue && <Text style={styles.clueText}>{clue}</Text>}</View>
+        <View>{clue && <Text style={styles.clueText}>{clue}</Text>}</View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -90,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.black500,
     alignItems: "center",
     justifyContent: "space-around",
-    padding: 24,
+    padding: 20,
   },
 
   textInput: {
@@ -123,7 +130,7 @@ const styles = StyleSheet.create({
     backgroundColor: "orange",
     padding: 6,
     fontWeight: 600,
-    margin: 4,
+    margin: 24,
     fontSize: 22,
   },
 });

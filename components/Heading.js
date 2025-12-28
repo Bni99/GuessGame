@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     width: 180,
     maxWidth: "75%",
     padding: deviceWidth < 380 ? 8 : 12,
-    margin: 20,
+    margin: 28,
   },
 });

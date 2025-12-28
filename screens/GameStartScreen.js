@@ -2,50 +2,73 @@ import { Colors } from "../constants/colors";
 import PrimaryButton from "../components/PrimaryButton";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 
 const GameStartScreen = ({ changeCurrentScreen }) => {
+  const { width, height } = useWindowDimensions();
+
+  const boxHeight = height < 630 ? 210 : 190;
+  const boxWidth = width < 380 ? 200 : 220;
+  const textContainerWidth = width < 380 ? 200 : 300;
+
   return (
     <SafeAreaView style={styles.gameStartScreenContainer}>
-      <View style={styles.subContainer}>
-        <View style={styles.box}>
-          <FontAwesome5
-            name="question"
-            size={deviceWidth < 380 ? 130 : 180}
-            color={Colors.black800}
-          />
+      <ScrollView
+        style={styles.subContainer}
+        contentContainerStyle={{
+          alignItems: "center",
+          flex: 1,
+          justifyContent: "space-around",
+        }}
+      >
+        <View style={{ alignItems: "center" }}>
+          <View style={[styles.box, { height: boxHeight, width: boxWidth }]}>
+            <FontAwesome5
+              name="question"
+              size={width < 380 ? 100 : 160}
+              color={Colors.black800}
+            />
+          </View>
+          <View
+            style={[
+              styles.mainScreenTextContainer,
+              { width: textContainerWidth },
+            ]}
+          >
+            <Text style={styles.mainScreenText}>Guess The Number</Text>
+          </View>
         </View>
-        <View style={styles.mainScreenTextContainer}>
-          <Text style={styles.mainScreenText}>Guess The Number</Text>
-        </View>
-      </View>
-      <PrimaryButton
-        title="Start A New Game"
-        onPress={() => changeCurrentScreen(1)}
-        style={styles.button}
-      />
+
+        <PrimaryButton
+          title="Start A New Game"
+          onPress={() => changeCurrentScreen(1)}
+          style={styles.button}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 export default GameStartScreen;
 
-const deviceWidth = Dimensions.get("window").width;
-
 const styles = StyleSheet.create({
   gameStartScreenContainer: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "space-between",
   },
 
   subContainer: {
-    alignItems: "center",
+    marginBottom: 16,
+    flex: 1,
   },
 
   box: {
-    height: deviceWidth < 380 ? 180 : 220,
-    width: deviceWidth < 380 ? 200 : 240,
     backgroundColor: Colors.yellow600,
     margin: 24,
     alignItems: "center",
@@ -56,19 +79,17 @@ const styles = StyleSheet.create({
 
   mainScreenText: {
     fontFamily: "main-font",
-    fontSize: deviceWidth < 380 ? 40 : 46,
+    fontSize: 42,
     color: Colors.white800,
     textAlign: "center",
     flexWrap: "wrap",
   },
 
   mainScreenTextContainer: {
-    width: deviceWidth < 380 ? 200 : 250,
-    marginTop: 8,
-    marginBottom: 16,
+    marginHorizontal: 16,
   },
 
   button: {
-    marginBottom: 100,
+    margin: 24,
   },
 });
